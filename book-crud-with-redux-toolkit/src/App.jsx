@@ -8,10 +8,13 @@ const App = () => {
   const handleEdit = (book) => {
     setBookToEdit(book)
   };
+  const handleCancel = () => {
+    setBookToEdit(null)
+  };
 
   return (
     <div>
-      <BookForm bookToEdit={bookToEdit}></BookForm>
+      <BookForm onCancel={handleCancel} bookToEdit={bookToEdit}></BookForm>
       <br />
       <BookList onHandleEdit={handleEdit}></BookList>
     </div>

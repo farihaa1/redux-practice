@@ -1,10 +1,10 @@
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addBook } from "../features/bookSlice";
+import { addBook, updateBook } from "../features/bookSlice";
 import { useEffect } from "react";
 
-const BookForm = ({ bookToEdit }) => {
+const BookForm = ({ bookToEdit, OnCancel }) => {
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -30,8 +30,19 @@ const BookForm = ({ bookToEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ id: nanoid(), ...book });
-    dispatch(addBook({ ...book, id: nanoid() }));
+    if (bookToEdit) {
+      dispatch(updateBook(book));
+    } else {
+      dispatch(addBook({ ...book, id: nanoid() }));
+    }
+    setBook({
+      title: "",
+      author: "",
+      price: 0,
+      quantity: 0,
+    });
   };
+
   return (
     <div>
       <h2>Book Form </h2>
@@ -74,11 +85,8 @@ const BookForm = ({ bookToEdit }) => {
         />
         {bookToEdit ? (
           <>
-          <button>Edit</button>
-          <button>Cancel</button>
-          <button>Edit</button>
-            <input type="submit" value="Edit" />
-            <input type="submit" value="Cancel" />
+            <input type="submit" value="Edit book" />
+            <input onClick={OnCancel} type="submit" value="Cancel" />
           </>
         ) : (
           <>
