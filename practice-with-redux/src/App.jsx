@@ -2,16 +2,15 @@
 // action-increment,decrement,reset
 // reducer
 // store
-import { configureStore } from '@reduxjs/toolkit'
-import { Provider } from 'react-redux'
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
 import Counter from "./CounterComponent";
-
 
 // constants
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
 const RESET = "RESET";
-const INCREMENT_BY_VALUE = "INCREMENT_BY_VALUE"
+const INCREMENT_BY_VALUE = "INCREMENT_BY_VALUE";
 
 export const initialState = {
   count: 0,
@@ -25,7 +24,7 @@ export const incrementAction = () => {
 export const incrementByValue = (value) => {
   return {
     type: INCREMENT_BY_VALUE,
-    payload:value
+    payload: value,
   };
 };
 export const decrementAction = () => {
@@ -71,15 +70,13 @@ const counterReducer = (state = initialState, action) => {
 
 const store = configureStore({
   reducer: {
-    counter:counterReducer,
+    counter: counterReducer,
   },
-})
+});
 
-store.subscribe(()=>{
-  console.log(store.getState())
-})
-
-
+store.subscribe(() => {
+  console.log(store.getState());
+});
 
 const APP = () => (
   <Provider store={store}>
@@ -87,5 +84,4 @@ const APP = () => (
   </Provider>
 );
 
-
-export default APP
+export default APP;

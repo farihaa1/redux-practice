@@ -2,14 +2,21 @@ import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBook } from "../features/bookSlice";
+import { useEffect } from "react";
 
-const BookForm = () => {
+const BookForm = ({ bookToEdit }) => {
   const [book, setBook] = useState({
     title: "",
     author: "",
     price: 0,
     quantity: 0,
   });
+
+  useEffect(() => {
+    if (bookToEdit) {
+      setBook(bookToEdit);
+    }
+  }, [bookToEdit]);
 
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -65,7 +72,19 @@ const BookForm = () => {
           id=""
           required
         />
-        <input type="submit" value="submit" />
+        {bookToEdit ? (
+          <>
+          <button>Edit</button>
+          <button>Cancel</button>
+          <button>Edit</button>
+            <input type="submit" value="Edit" />
+            <input type="submit" value="Cancel" />
+          </>
+        ) : (
+          <>
+            <input type="submit" value="submit" />
+          </>
+        )}
       </form>
     </div>
   );
